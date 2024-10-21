@@ -1,0 +1,3185 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Emilia's API",
+    "version": "1.0.0",
+    "description": "In this API, I just want to make a REST API because I'm curious to use it as best as possible because I provide it for free.",
+    "license": {
+      "name": "MIT",
+      "url": "https://mit-license.org/"
+    }
+  },
+  "components": {
+    "schemas": {
+      "QuestionWithImage": {
+        "type": "object",
+        "properties": {
+          "ask": {
+            "type": "string",
+            "description": "The question to be asked."
+          },
+          "image": {
+            "type": "string",
+            "description": "The URL of the image to be analyzed."
+          }
+        },
+        "example": {
+          "ask": "What is in this image?",
+          "image": "https://static9.depositphotos.com/1642482/1149/i/450/depositphotos_11490587-stock-photo-bananas.jpg"
+        }
+      },
+      "AnswerWithImage": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "The response content of the question request."
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 200
+          },
+          "creator": {
+            "type": "string",
+            "description": "Creator of the response."
+          }
+        },
+        "example": {
+          "content": "The image you sent shows a ripe banana on a white background.",
+          "status": 200,
+          "creator": "cifumo"
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "Error message content."
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code.",
+            "example": 400
+          },
+          "creator": {
+            "type": "string",
+            "description": "Creator of the response."
+          }
+        },
+        "example": {
+          "content": "Bad Request: No Query Ask Provided",
+          "status": 400,
+          "creator": "Cifumo"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Anime",
+      "description": "Anime endpoints"
+    },
+    {
+      "name": "AI",
+      "description": "AI endpoints"
+    },
+    {
+      "name": "Genshin",
+      "description": "Genshin endpoints"
+    },
+    {
+      "name": "Hsr",
+      "description": "Honkai: Star Rail Endpoints"
+    },
+    {
+      "name": "Ml",
+      "description": "Mobile legend bang bang"
+    },
+    {
+      "name": "Downloader",
+      "description": "Downloader endpoints"
+    },
+    {
+      "name": "Stalker",
+      "description": "Stalker endpoint"
+    },
+    {
+      "name": "Search",
+      "description": "Tempat untuk mencari sesuatu"
+    }
+  ],
+  "paths": {
+    "/api/ml/info": {
+      "get": {
+        "tags": ["Ml"],
+        "summary": "Get Chara from Mobile legend",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Chara here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ml/voice": {
+      "get": {
+        "tags": ["Ml"],
+        "summary": "Get voice From Character Mobile legend",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "nama heronya siapa?",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Voice nya make bahasa apa? en/ja/id/zh?",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "voice_id",
+            "in": "query",
+            "description": "mau make sound yang apa ketik asal aja kalo mau liat semua id nya",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/hsr/info": {
+      "get": {
+        "tags": ["Hsr"],
+        "summary": "Get Chara from Honkai star rail",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Chara here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/genshin/info": {
+      "get": {
+        "tags": ["Genshin"],
+        "summary": "Get Chara from genshin",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Chara here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/search/pinterest": {
+      "get": {
+        "tags": ["Search"],
+        "summary": "Search Pinterest Image",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Image Here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/stalk/whatsappch": {
+      "get": {
+        "tags": ["Stalker"],
+        "summary": "Get Info from link channel",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "link channel WhatsApp here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/stalk/instagram": {
+      "get": {
+        "tags": ["Stalker"],
+        "summary": "Get User from Instagram",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search User Here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/stalk/roblox": {
+      "get": {
+        "tags": ["Stalker"],
+        "summary": "Get User from roblox",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search User Here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/stalk/tiktok": {
+      "get": {
+        "tags": ["Stalker"],
+        "summary": "Get info from username",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search user here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/pindl": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Video and Image from Pinterest",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Paste here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/spotify-search": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Search For Spotify",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Sing Spotify Here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/spotify-dl": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Download For Spotify",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the Spotify here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/ytdl": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Download For Youtube",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the Youtube here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/capcut": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Download For Capcut",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the Capcut here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/terabox": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Download For Terabox",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the Terabox here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/downloader/tiktok": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Get Video or image from tiktok url",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the Tiktok video/image",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/upscale": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Upscale Foto only",
+        "parameters": [
+          {
+            "name": "scale",
+            "in": "query",
+            "description": "Resolution (2,4,6,8,16)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+            2,
+            4,
+            6,
+            8,
+            16
+          ]
+            }
+          },
+          {
+
+            "name": "anime",
+            "in": "query",
+            "description": "Jika fotomu anime maka true jika tidak false atau kosongkan saja",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                true,
+                false
+                ]
+            }
+
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "description": "url foto mu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/animagine": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Ai AnimagineXL",
+        "parameters": [
+          {
+            "name": "prompt",
+            "in": "query",
+            "description": "Prompt string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+      },
+          {
+            "name": "negative_prompt",
+            "in": "query",
+            "description": "Negative string",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+      },
+          {
+            "name": "model",
+            "in": "query",
+            "description": "Gaya",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+            "(none)",
+            "Cinematic",
+            "Photographic",
+            "Anime",
+            "Manga",
+            "Digital Art",
+            "Pixel art",
+            "Fantasy art",
+            "Neonpunk",
+            "3D Model"
+          ]
+            }
+      },
+          {
+            "name": "sampler",
+            "in": "query",
+            "description": "Sampler",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+            "DDIM",
+            "Euler a",
+            "Euler",
+            "DPM++ 2M Karras",
+            "DPM++ 2M SDE Karras",
+            "DPM++ SDE Karras"
+          ]
+            }
+      },
+          {
+            "name": "kualitas",
+            "in": "query",
+            "description": "Kualitas",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+            "(none)",
+            "Light",
+            "Standard",
+            "Heavy"
+          ]
+            }
+      },
+          {
+            "name": "lebar",
+            "in": "query",
+            "description": "Lebar gambar",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+            "640",
+            "832",
+            "1024",
+            "1152",
+            "1344",
+            "768",
+            "896",
+            "1216",
+            "1536"
+          ]
+            }
+      },
+          {
+            "name": "tinggi",
+            "in": "query",
+            "description": "Tinggi gambar",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+            "640",
+            "832",
+            "1024",
+            "1152",
+            "1344",
+            "768",
+            "896",
+            "1216",
+            "1536"
+          ]
+            }
+      },
+          {
+            "name": "ukuran",
+            "in": "query",
+            "description": "Rasio",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+            "Custom",
+            "640 x 1536",
+            "832 x 1216",
+            "1024 x 1024",
+            "1152 x 896",
+            "1344 x 768",
+            "768 x 1344",
+            "896 x 1152",
+            "1216 x 832",
+            "1536 x 640"
+          ]
+            }
+      }
+    ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/omniplex": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Ai omniplex Chat and search",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Mau nanya apa?",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prompt",
+            "in": "query",
+            "description": "Sifat bot nya mau bagaimana?",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/txt2img": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Generate picture with ai",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Tulis prompt nya di sini om",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/bing-image": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Bing create Image With your cookie",
+        "parameters": [
+          {
+            "name": "cookie",
+            "in": "query",
+            "description": "Your bing cookie",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "p",
+            "in": "query",
+            "description": "Your imagination here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/logicai": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Chat with your custom logic sessions",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Nama mu tulis disini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Tulis pesannya disini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prompt",
+            "in": "query",
+            "description": "Tulis Logikanya disini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/emilia": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Chat with emilia ai ",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Nama mu tulis disini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Tulis pesannya disini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/gpt4": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Ai Gpt4",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Ketik pesan nya di bawah ini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/vercelai": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Ai vercel",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Ketik pesan nya di bawah ini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/thinkany": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with thinkany",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Ketik pesan nya di bawah ini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/aoyoai": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Aoyo Ai",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Ketik pesan nya di bawah ini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/megpt": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Me Gpt (bisa bahasa jawa jir)",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Ketik pesan nya di bawah ini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/yousearch": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Yousearch",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Ketik pesan nya di bawah ini",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/bard-image": {
+      "post": {
+        "tags": ["AI"],
+        "summary": "Ask a question to Bard with an image",
+        "description": "Endpoint for submitting a question with an image to Bard.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionWithImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerWithImage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/bard-chat": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Bard Realtime",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Tanyalah apapun disini :v",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/gemini-image": {
+      "post": {
+        "tags": ["AI"],
+        "summary": "Ask a question to Gemini with an image",
+        "description": "Endpoint for submitting a question with an image to Gemini.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionWithImage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerWithImage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/gemini-chat": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with Gemini",
+        "parameters": [
+          {
+            "name": "ask",
+            "in": "query",
+            "description": "Tanyalah apapun disini :v",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/leptonai": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "chat with AI ",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Halo apa kabar?",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/ai/vocalremover": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Remover vocal and instrument",
+        "parameters": [
+          {
+            "name": "buffer",
+            "in": "query",
+            "description": "send buffer here",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/samehadaku-episode": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan episode anime di Samehadaku",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman episode anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data episode anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/samehadaku-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Cari informasi anime di Samehadaku",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Kata kunci pencarian",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data hasil pencarian"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/samehadaku-latest": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan informasi anime terbaru di Samehadaku",
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data anime terbaru"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/samehadaku-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan detail anime di Samehadaku",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman detail anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data detail anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/komiku-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Cari informasi anime di Komiku",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Kata kunci pencarian",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data hasil pencarian"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/komiku-latest": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan informasi anime terbaru di Komiku",
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data anime terbaru"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/komiku-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan detail anime di Komiku",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman detail anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data detail anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/komiku-chapter": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan chapter anime di Komiku",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman chapter anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data chapter anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/kiryuu-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Cari informasi anime di Kiryuu",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Kata kunci pencarian",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data hasil pencarian"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/kiryuu-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan detail anime dari Kiryuu",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman detail anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data detail anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/anoboy-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Cari anime di Anoboy",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Kata kunci pencarian",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data hasil pencarian"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/anoboy-latest": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan anime terbaru dari Anoboy",
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data anime terbaru"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/anoboy-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan detail anime dari Anoboy",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman detail anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data detail anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/otakudesu-episode": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan informasi episode dari Otakudesu",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman episode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data informasi episode"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/otakudesu-batch": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan link batch download dari Otakudesu",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman batch",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Link download batch"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/otakudesu-getvideo": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Dapatkan video dari episode Otakudesu",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL dari halaman video episode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respon sukses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Menunjukkan sukses atau kegagalan"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "Kode status HTTP"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data video episode"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Kesalahan server internal"
+          }
+        }
+      }
+    },
+    "/api/anime/otakudesu-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get detailed information about an anime from Otakudesu",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the anime detail page",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Detailed information about the anime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/anime/otakudesu-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search anime/manga from Otakudesu",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search query for anime/manga",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/nekopoi-latest": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get latest anime/manga from Nekopoi",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/nekopoi-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search anime/manga from Nekopoi",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/nekopoi-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get details of anime/manga from Nekopoi",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the anime/manga",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/komikcast-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search Komikcast",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/komikcast-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get details of Komikcast",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the anime/manga",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/komikcast-chapter": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get chapter of Komikcast",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the anime/manga",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/komikcast-latest": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get latest anime/manga from Komikcast",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/neonime-search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search anime on Neonime",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search query for the anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/neonime-detail": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get details of a specific anime from Neonime",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "URL of the anime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/anime/neonime-ongoing": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Get ongoing anime from Neonime",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates success or failure"
+                    },
+                    "code": {
+                      "type": "integer",
+                      "description": "HTTP status code"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Response data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}

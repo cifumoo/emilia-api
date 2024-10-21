@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-open .main {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+  }
+}

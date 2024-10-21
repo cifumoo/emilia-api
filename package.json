@@ -1,0 +1,40 @@
+{
+  "name": "anime-api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "axios": "^1.7.2",
+    "@google/generative-ai": "latest",
+    "tmp": "*",
+    "mime-types": "*",
+    "https-proxy-agent": "^5.0.0",
+    "socks-proxy-agent": "^5.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "jimp": "*",
+    "node-fetch": "^3.2.0",
+    "form-data": "^4.0.0",
+    "qs": "^6.12.1",
+    "undici": "*",
+    "fake-useragent": "*",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-icons": "*",
+    "yt-search": "*",
+    "react-dom": "^18",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-react": "^5.17.14"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}

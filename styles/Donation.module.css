@@ -1,0 +1,179 @@
+/* General container styling */
+.container {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.5s ease-in-out;
+  padding: 20px;
+  color: #e2e8f0; /* Light text color for better readability */
+}
+
+/* Support and donate container styling */
+.supportContainer, .donateContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Header styling */
+.header {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: #1a202c; /* Darker header background */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Description paragraph styling */
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  color: #e2e8f0; /* Light text color for better readability */
+}
+
+/* Form styling */
+.donateForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid #4a5568; /* Darker border */
+  background-color: #2d3748; /* Dark form background */
+  border-radius: 5px;
+  padding: 20px;
+}
+
+/* Form element container */
+.formGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Ensure the form group takes full width */
+.formGroupFullWidth {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Ensure form elements are responsive */
+.formGroup input {
+  flex: 1;
+}
+
+/* Label styling */
+.donateForm label {
+  font-size: 14px;
+  color: #a0aec0; /* Light label color */
+  margin-bottom: 5px; /* Jarak antara label dan input */
+}
+
+/* Input field styling */
+.donateForm input, .donateForm select {
+  padding: 10px;
+  height: 40px;
+  border: 1px solid #4a5568; /* Darker border */
+  background-color: #1a202c; /* Darker input background */
+  color: #e2e8f0; /* Light text color */
+  border-radius: 5px;
+  outline: none;
+  width: 100%; /* Pastikan input mengambil lebar penuh */
+  margin-bottom: 10px; /* Jarak antara input dan elemen berikutnya */
+}
+
+/* Select field styling */
+.donateForm .select {
+  padding: 10px;
+  height: 40px;
+  border: 1px solid #4a5568; /* Darker border */
+  background-color: #1a202c; /* Darker input background */
+  color: #e2e8f0; /* Light text color */
+  border-radius: 5px;
+  outline: none;
+  width: 100%; /* Pastikan input mengambil lebar penuh */
+  margin-bottom: 10px; /* Jarak antara input dan elemen berikutnya */
+}
+ 
+/* Input field focus styling */
+.donateForm input:focus {
+  border-color: #38a169; /* Highlight border color */
+}
+
+/* Button styling */
+.donateButton {
+  padding: 10px;
+  height: 40px;
+  border: none;
+  background-color: #38a169; /* Button background color */
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Loading container styling */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+}
+
+/* Spinner styling */ 
+.spinner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.spinner i {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: spinner-ease-spin 1s linear infinite;
+  border: 3px solid transparent;
+  border-bottom-color: #2d3748;
+}
+
+.spinner i:nth-child(2) {
+  opacity: 0.75;
+  animation: spinner-linear-spin 1s linear infinite;
+  border: 3px dotted transparent;
+  border-bottom-color: #2d3748;
+}
+
+.qrContainer {
+  margin-top: 20px;
+  text-align: center; 
+}
+
+.qrContainer img {
+  max-width: 200px; /* Sesuaikan ukuran maksimum sesuai preferensi Anda */
+  height: auto;
+  border: 2px solid #ccc; /* Menambahkan border dengan ketebalan 2px dan warna abu-abu */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Spinner animations */
+@keyframes spinner-ease-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinner-linear-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
