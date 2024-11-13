@@ -13,6 +13,7 @@
     "axios": "^1.7.2",
     "@google/generative-ai": "latest",
     "tmp": "*",
+    "eventsource": "*",
     "mime-types": "*",
     "https-proxy-agent": "^5.0.0",
     "socks-proxy-agent": "^5.0.0",
