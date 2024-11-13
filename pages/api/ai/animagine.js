@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const result = await animagine(prompt + ",masterpiece, best quality, very aesthetic, absurdres"
+    const result = await animagine.create(prompt + ",masterpiece, best quality, very aesthetic, absurdres"
     );
     res.status(200).json({ 
     creator: "cifumo",
